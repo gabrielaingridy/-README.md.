@@ -1,0 +1,24 @@
+meu-projeto-biblioteca/
+├── README.md
+├── docs/
+│   ├── arquitetura.png
+│   ├── diagrama_casos_de_uso.png
+│   ├── diagrama_classes.png
+│   └── plano_de_projeto.md
+└── src/
+
+Objetivo do projeto revisado.
+Seção de Arquitetura do Sistema (com imagem do diagrama de blocos).
+Seção de Modelagem UML (links/imagens para os diagramas da pasta docs/).
+Lista de Requisitos Funcionais e Não Funcionais atualizada.
+Integrantes e histórico de versões.
+
+7. Estratégia de Commits Separados
+Commit 1 (Documentação/Modelagem):
+docs: adiciona diagramas UML de casos de uso e classe na pasta docs/
+Commit 2 (Arquitetura e Plano):
+docs: atualiza README.md com especificacao da arquitetura de 4 blocos e plano de riscos
+Commit 3 (Estrutura de Código/Dados):
+feat: cria estrutura inicial do banco de dados e modelos da API
+
+
