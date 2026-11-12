@@ -1,0 +1,54 @@
+from datetime import date, timedelta
+class Livro:
+def __init__(self, id_livro: int, titulo: str, autor: str, isbn: str):
+self.id = id_livro
+self.titulo = titulo
+self.autor = autor
+self.isbn = isbn
+self.status = "Disponível"
+def atualizar_status(self, novo_status: str):
+self.status = novo_status
+def verificar_disponibilidade(self) -> bool:
+return self.status == "Disponível"
+class Leitor:
+def __init__(self, id_leitor: int, nome: str, email: str, matricula: str):
+self.id = id_leitor
+self.nome = nome
+self.email = email
+self.matricula = matricula
+self.status_conta = "Ativo"
+class Emprestimo:
+VALOR_MULTA_DIA = 1.50 # Regra refinada na E2 (RF06)
+def __init__(self, id_emprestimo: int, leitor: Leitor, livro: Livro, data_retirada: date
+= None):
+if not livro.verificar_disponibilidade():
+raise ValueError(f"O livro '{livro.titulo}' não está disponível.")
+if leitor.status_conta != "Ativo":
+raise ValueError(f"O leitor '{leitor.nome}' possui pendências.")
+self.id = id_emprestimo
+self.leitor = leitor
+self.livro = livro
+self.data_retirada = data_retirada or date.today()
+self.data_prevista = self.data_retirada + timedelta(days=7) # Regra RF03
+self.data_devolucao = None
+self.valor_multa = 0.0
+self.livro.atualizar_status("Emprestado")
+def calcular_multa(self, data_entrega: date) -> float:
+if data_entrega > self.data_prevista:
+dias_atraso = (data_entrega - self.data_prevista).days
+return round(dias_atraso * self.VALOR_MULTA_DIA, 2)
+return 0.0
+def registrar_devolucao(self, data_entrega: date = None):
+self.data_devolucao = data_entrega or date.today()
+self.valor_multa = self.calcular_multa(self.data_devolucao)
+self.livro.atualizar_status("Disponível")
+return {
+"livro": self.livro.titulo,
+"leitor": self.leitor.nome,
+"data_prevista": str(self.data_prevista),
+"data_devolucao": str(self.data_devolucao),
+"multa_gerada": f"R$ {self.valor_multa:.2f}"
+}
+if __name__ == "__main__":
+livro1 = Livro(1, "Engenharia de Software", "Ian Sommerville", "978-8543024974")
+leitor1 = Leitor(101, "Jéssica Silva", "jessica@email.com", "2026001")
