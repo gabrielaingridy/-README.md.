@@ -1,0 +1,71 @@
+Usuario (Superclasse): Centraliza identificação e autenticação comuns a todos os perfis que
+acessam o sistema.
+Leitor (Subclasse de Usuario ): Representa alunos, professores e membros da comunidade que
+realizam consultas e empréstimos.
+Bibliotecario (Subclasse de Usuario ): Representa o funcionário autorizado a gerenciar o
+catálogo e operar empréstimos e devoluções.
+Livro : Representa cada obra catalogada no acervo físico da biblioteca e seu estado de
+disponibilidade.
+Emprestimo : Representa a transação de retirada, o controle de prazo de devolução e o cálculo
+automático de multas.
+
+3. Diagrama de Classes Atualizado (UML)
+                              +-------------------------+
+                              |        Usuario          |
+                              +-------------------------+
+                              | - id: int               |
+                              | - nome: string          |
+                              | - email: string         |
+                              | - senhaHash: string     |
+                              +-------------------------+
+                              | + autenticar(): boolean |
+                              +-------------------------+
+
+                                           ^
+                                           | (Herança)
+                        +-----------------+-----------------+
+                        |                                   |
+
+             +---------------------------+ +-----------------------------+
+             |          Leitor           | |         Bibliotecario       |  
+             +---------------------------+ +-----------------------------+
+             | - matricula: string       | | - registroFuncional: string |
+             | - tipoLeitor: string      | | - turno: string             |
+             | - statusConta: string     | +-----------------------------+
+             +---------------------------+ | + cadastrarLivro(): void    |
+             | + consultarAcervo(): List | | + cadastrarLeitor(): void   |
+             +---------------------------+ +-----------------------------+
+
+                        | 1                                 | 1
+                        | realiza                           | registra
+                        | *                                 | *
+                        +-------------> +-----------------------------------+
+                                        |            Emprestimo             |
+                                        +-----------------------------------+
+                                        | - id: int                         |
+                                        | - dataRetirada: Date              |
+                                        | - dataPrevista: Date              | 
+                                        | - dataDevolucao: Date             | 
+                                        | - valorMulta: float               | 
+                                        +-----------------------------------+
+                                        | + registrarSaida(): void          |
+                                        | + registrarDevolucao(): void      | 
+                                        | + calcularMulta(): float          |
+                                        +-----------------------------------+
+                                                            | * refere-se a
+                                                            | 1
+
+                                        +-----------------------------------+
+                                        | Livro |
+                                        +-----------------------------------+
+                                        | - id: int                         |
+                                        | - isbn: string                    |
+                                        | - titulo: string                  |
+                                        | - autor: string                   |
+                                        | - editora: string                 |
+                                        | - anoPublicacao: int              |
+                                        | - status: string                  |
+                                        +-----------------------------------+
+                                        | + atualizarStatus(status): void   |
+                                        | + verificarDisponibilidade(): bool|
+                                        +-----------------------------------+
