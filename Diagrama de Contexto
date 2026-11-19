@@ -1,0 +1,10 @@
+O Diagrama de Contexto delimita a fronteira lógica do Sistema de Gestão de Biblioteca (Processo 0) e suas interfaces com as duas entidades externas definidas nos requisitos: Leitor e Bibliotecário.
++-------------------+ +--------------------+ | | --- consulta_acervo -------------
+----> | | | | --- solicitacao_historico -------------> | 0. SISTEMA | | LEITOR | |
+DE GESTÃO DE | | (Entidade Ext.) | <-- lista_livros_disponiveis --------- |
+BIBLIOTECA | | | <-- situacao_emprestimos_multas ------ | | | | <--
+alerta_atraso_multa -------------- | | +-------------------+ +--------------------
++ ^ | | | dados_cadastro_livro, dados_cadastro_leitor, | | dados_emprestimo,
+registro_devolucao --------------------------+ | v comprovante_emprestimo,
+recibo_devolucao_multa, confirmacao_cadastro | +--------------------+ |
+BIBLIOTECÁRIO | | (Entidade Ext.) | +--------------------+
