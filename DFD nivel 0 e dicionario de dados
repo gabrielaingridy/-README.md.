@@ -1,0 +1,40 @@
+Decompondo o Processo 0 em quatro processos principais coerentes com os requisitos funcionais
+(RF01 a RF06) e mantendo o balanceamento exato das entradas e saídas do Diagrama de
+Contexto:
+[ENTIDADES EXTERNAS] [PROCESSOS NÍVEL 0] [DEPÓSITOS DE DADOS] Bibliotecário ---
+dados_cadastro_livro ---> ( 1.0 Cadastrar ) --- registro_livro ---> [ D1: Acervo
+de Livros ] Bibliotecário <-- confirmacao_cadastro ---- ( Acervo/Leitor) ---
+registro_leitor --> [ D2: Cadastro de Leitores ] Bibliotecário ---
+dados_cadastro_leitor --> ( ) Leitor ---------- consulta_acervo --------> ( 2.0
+Consultar ) <-- dados_livro ------- [ D1: Acervo de Livros ] Leitor <---------
+lista_livros_disponiveis- ( Acervo ) Bibliotecário --- dados_emprestimo -------> (
+3.0 Registrar ) <-- status_leitor ----- [ D2: Cadastro de Leitores ] Bibliotecário
+<-- comprovante_emprestimo -- ( Empréstimo ) <-- disponibilidade --- [ D1: Acervo
+de Livros ] ( ) --- atualiza_status --> [ D1: Acervo de Livros ] ( ) ---
+novo_emprestimo --> [ D3: Empréstimos ] Bibliotecário --- registro_devolucao -----
+> ( 4.0 Registrar ) <-- dados_emprestimo -- [ D3: Empréstimos ] Bibliotecário <--
+recibo_devolucao_multa -- ( Devolução ) --- baixa_emprestimo -> [ D3: Empréstimos
+] Leitor <--------- alerta_atraso_multa ----- ( e Multas ) --- libera_livro ----->
+[ D1: Acervo de Livros ] Leitor ---------- solicitacao_historico --> ( ) Leitor <-
+-------- situacao_emprestimos_multas
+
+Nome do Dado          Tipo         Tamanho / Formato       Significado, Origem e Regras de Validação
+isbn                  Texto        13 dígitos              Código padrão internacional do livro (Depósito D1). Obrigatório, único por obra catalogada.
+titulo_livro          Texto        120 caracteres          Título completo da obra no acervo (Depósito D1). Obrigatório; indexado para busca (RF05).
+status_livro          Texto        12 caracteres           Situação atual do exemplar em D1: DISPONIVEL | EMPRESTADO | MANUTENCAO .
+matricula_leitor      Texto        10 caracteres           Identificador institucional do leitor (Depósito D2). Chave única obrigatória para empréstimos.
+tipo_leitor           Texto        12 caracteres           Categoria do usuário em D2: ALUNO | PROFESSOR | COMUNIDADE .
+status_conta          Texto        10 caracteres           Situação cadastral em D2: ATIVO | SUSPENSO .Leitores suspensos não retiram livros.
+id_emprestimo         Inteiro      8 dígitos               Código sequencial único da transação de retirada (Depósito D3, Chave Primária).
+data_retirada         Data         AAAA-MM-DD              Data efetiva em que o exemplar foi retirado pelo leitor (gerada no Processo 3.0).
+data_prevista         Data         AAAA-MM-DD              Data limite para devolução sem multa, calculada como data_retirada + 7 dias (RF03).
+valor_multa           Decimal      8,2 (R$ 0,00)           Valor calculado no Processo 4.0: dias_atraso × R$ 1,50 quando data_devolucao > data_prevista (RF06).
+
+
+
+
+
+
+
+
+
