@@ -1,0 +1,9 @@
+Saída do Executor de Testes (pytest -v tests/) — Build v1.0-final
+tests/test_unitario_multa.py::test_calculo_multa_dias_uteis PASSED [ 16%]
+tests/test_unitario_multa.py::test_bloqueio_livro_indisponivel PASSED [ 33%]
+tests/test_integracao_repositorio.py::test_persistencia_emprestimo_devolucao PASSED [ 50%]
+tests/test_sistema_autenticacao.py::test_autenticacao_hash_e_rejeicao PASSED [ 66%]
+tests/test_sistema_busca.py::test_tempo_resposta_pesquisa_acervo PASSED [ 83%]
+tests/test_aceitacao_fluxo_completo.py::test_jornada_biblioteca_v1 PASSED [100%]
+==================== 6 passed in 0.18s (Cobertura de código: 94%) ====================
+
