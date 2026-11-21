@@ -1,0 +1,18 @@
+README.md (Atualizado): Visão geral do problema, arquitetura em 4 blocos, 
+requisitos RF/RNF, pré-requisitos (Python 3.10+), passo a passo de instalação, execução da aplicação (python src/main.py) e execução dos testes (pytest).
+
+CHANGELOG.md [1.0.0]:Added: Persistência SQLite, autenticação PBKDF2, validação de ISBN único e suíte de 6 testes automatizados.
+Fixed: BUG-01 (multa negativa) e BUG-02 (duplicidade de ISBN).
+Security: Sanitização de entradas e externalização de variáveis via .env.
+
+Commits Finais
+• test: adiciona suite completa de testes unitarios, integracao e sistema
+• fix(livro): impede cadastro duplicado de ISBN e atualiza DD
+• docs: adiciona analise de seguranca, guia de instalacao no README e CHANGELOG v1.0
+
+Tag / Release Oficial
+git tag -a v1.0-final -m 'Release final v1.0 - Sistema de Gestao de Biblioteca' && git push origin v1.0-final
+
+
+
+
